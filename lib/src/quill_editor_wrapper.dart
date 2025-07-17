@@ -333,24 +333,24 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
               DartCallback(
                   name: 'FocusChanged',
                   callBack: (map) {
-                    // _hasFocus = map?.toString() == 'true';
-                    // if (widget.onFocusChanged != null) {
-                    //   widget.onFocusChanged!(_hasFocus);
-                    // }
-                    // if (widget.ensureVisible == true && _hasFocus) {
-                    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    //     final context = _scrollKey.currentContext;
-                    //     if (context != null) {
-                    //       Scrollable.ensureVisible(
-                    //         context,
-                    //         duration: const Duration(milliseconds: 300),
-                    //         alignmentPolicy:
-                    //             ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
-                    //         curve: Curves.fastLinearToSlowEaseIn,
-                    //       );
-                    //     }
-                    //   });
-                    // }
+                    _hasFocus = map?.toString() == 'true';
+                    if (widget.onFocusChanged != null) {
+                      widget.onFocusChanged!(_hasFocus);
+                    }
+                    if (widget.ensureVisible == true && _hasFocus) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        final context = _scrollKey.currentContext;
+                        if (context != null) {
+                          Scrollable.ensureVisible(
+                            context,
+                            duration: const Duration(milliseconds: 300),
+                            alignmentPolicy:
+                                ScrollPositionAlignmentPolicy.explicit,
+                            curve: Curves.fastLinearToSlowEaseIn,
+                          );
+                        }
+                      });
+                    }
                   }),
               DartCallback(
                   name: 'OnEditingCompleted',
