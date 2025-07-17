@@ -571,7 +571,7 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
         </script>
         <style>
         /*!
-       * Quill Editor v2.0.0-dev.3
+       * Quill Editor v2.0.3
        * https://quilljs.com/
        * Copyright (c) 2014, Jason Chen
        * Copyright (c) 2013, salesforce.com
