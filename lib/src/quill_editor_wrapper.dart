@@ -953,23 +953,12 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
                   },
                   enter: {
                       key: 'Enter',
-                      handler: function(range, context) {
-                          this.quill.insertText(range.index, '\n', Quill.sources.USER);
-                          this.quill.setSelection(range.index + 1, Quill.sources.SILENT);
-
-                          setTimeout(function() {
-                              var editorElem = document.querySelector('.ql-editor');
-                              if (editorElem) {
-                                  editorElem.scrollTop = editorElem.scrollHeight;
-                              }
-                          }, 10);
-
-                          if($kIsWeb) {
-                              OnEditingCompleted(quilleditor.root.innerHTML);
+                      handler: () => {
+                         if($kIsWeb) {
+                          OnEditingCompleted(quilleditor.root.innerHTML);
                           } else {
-                              OnEditingCompleted.postMessage(quilleditor.root.innerHTML);
+                          OnEditingCompleted.postMessage(quilleditor.root.innerHTML);
                           }
-                          return false;
                       }
                   }
               };
@@ -998,6 +987,25 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
               placeholder: '${widget.hintText ?? "Description"}',
               clipboard: {
                 matchVisual: true
+              }
+            });
+
+            quilleditor.root.addEventListener('keydown', function(e) {
+              if (e.key === 'Enter') {
+                setTimeout(function() {
+                  // Scroll the selection/caret into view
+                  const selection = window.getSelection();
+                  if (selection && selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const rect = range.getBoundingClientRect();
+                    // Only scroll if the caret is below the visible area
+                    if (rect.bottom > window.innerHeight) {
+                      window.scrollBy(0, rect.bottom - window.innerHeight + 40); // 40px padding
+                    }
+                  }
+                  // Or, always scroll the editor's caret into view
+                  quilleditor.root.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 10); // Wait for Quill to insert the new line
               }
             });
             
