@@ -953,12 +953,23 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
                   },
                   enter: {
                       key: 'Enter',
-                      handler: () => {
-                         if($kIsWeb) {
-                          OnEditingCompleted(quilleditor.root.innerHTML);
+                      handler: function(range, context) {
+                          this.quill.insertText(range.index, '\n', Quill.sources.USER);
+                          this.quill.setSelection(range.index + 1, Quill.sources.SILENT);
+
+                          setTimeout(function() {
+                              var editorElem = document.querySelector('.ql-editor');
+                              if (editorElem) {
+                                  editorElem.scrollTop = editorElem.scrollHeight;
+                              }
+                          }, 10);
+
+                          if($kIsWeb) {
+                              OnEditingCompleted(quilleditor.root.innerHTML);
                           } else {
-                          OnEditingCompleted.postMessage(quilleditor.root.innerHTML);
+                              OnEditingCompleted.postMessage(quilleditor.root.innerHTML);
                           }
+                          return false;
                       }
                   }
               };
