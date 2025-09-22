@@ -23,6 +23,9 @@ class InputUrlWidget extends StatefulWidget {
   ///[iconWidget] icon for url picker
   final Widget iconWidget;
 
+  ///[fillColor] fill color for textfield
+  final Color fillColor;
+
   ///[InputUrlWidget] constructor of input url widget to capture, video/hyperlink urls
   const InputUrlWidget(
       {super.key,
@@ -30,7 +33,8 @@ class InputUrlWidget extends StatefulWidget {
       required this.type,
       required this.controller,
       required this.isActive,
-      required this.iconWidget});
+      required this.iconWidget,
+      required this.fillColor});
 
   @override
   State<StatefulWidget> createState() {
@@ -137,13 +141,14 @@ class _InputUrlWidgetState extends State<InputUrlWidget> {
                               }
                               return null;
                             },
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                                fillColor: widget.fillColor,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 5),
+                                    const EdgeInsets.symmetric(horizontal: 5),
                                 errorBorder: InputBorder.none,
                                 hintText: ' Type URL',
                                 alignLabelWithHint: true,
-                                hintStyle: TextStyle(fontSize: 10),
+                                hintStyle: const TextStyle(fontSize: 10),
                                 border: InputBorder.none),
                           ),
                         ),

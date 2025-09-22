@@ -247,6 +247,9 @@ class ToolBar extends StatefulWidget {
 
   final bool? _isScrollable;
 
+  ///[fillColor] fill color for textfield in link and video url input
+  final Color fillColor;
+
   ///[ToolBar] widget to show the quill
   /// The toolbar items will be auto aligned based on the screen's width or height
   /// The behaviour of the widget's alignment is similar to [Wrap] widget
@@ -270,6 +273,7 @@ class ToolBar extends StatefulWidget {
     this.activeIconColor = Colors.blue,
     this.toolBarColor = Colors.white,
     this.mainAxisSize,
+    this.fillColor = Colors.white,
   })  : assert(crossAxisAlignment is WrapCrossAlignment,
             "Please pass WrapCrossAlignment, instead of CrossAxisAlignment"),
         mainAxisAlignment = MainAxisAlignment.start,
@@ -300,6 +304,7 @@ class ToolBar extends StatefulWidget {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.min,
     this.textBaseline = TextBaseline.alphabetic,
+    this.fillColor = Colors.white,
   })  : assert(crossAxisAlignment is CrossAxisAlignment,
             "Please pass CrossAxisAlignment, instead of WrapCrossAlignment"),
         spacing = 0.0,
@@ -582,6 +587,7 @@ class ToolBarState extends State<ToolBar> {
             child: Padding(
               padding: _buttonPadding,
               child: InputUrlWidget(
+                fillColor: widget.fillColor,
                 iconWidget: SizedBox(
                   width: widget.iconSize! - 2,
                   height: widget.iconSize! - 2,
@@ -605,6 +611,7 @@ class ToolBarState extends State<ToolBar> {
             child: Padding(
               padding: _buttonPadding,
               child: InputUrlWidget(
+                fillColor: widget.fillColor,
                 iconWidget: Icon(
                   Icons.link,
                   color: widget.iconColor,
