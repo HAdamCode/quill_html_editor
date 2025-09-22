@@ -128,7 +128,6 @@ class _InputUrlWidgetState extends State<InputUrlWidget> {
                             horizontal: 4.0, vertical: 0),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: HexColor.fromHex('#E7F0FE'),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
                             minLines: 1,
