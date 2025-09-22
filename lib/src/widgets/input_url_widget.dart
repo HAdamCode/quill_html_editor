@@ -169,7 +169,8 @@ class _InputUrlWidgetState extends State<InputUrlWidget> {
 
                           Future.delayed(const Duration(milliseconds: 10))
                               .then((value) {
-                            widget.onSubmit(_inputValue ?? '');
+                            var url = _inputValue?.contains('http') ?? true ? _inputValue : 'https://$_inputValue';
+                            widget.onSubmit(url ?? '');
                             if (isToolTip) {
                               _toolTipKey.currentState!.hideOverlay();
                             } else {
